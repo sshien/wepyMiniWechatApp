@@ -132,10 +132,16 @@ swiper {
   height: 2rpx;
   background:  rgba(155,155,155,0.20);
 }
+.loade-more{
+      height: 100rpx;
+      text-align: center;
+      line-height: 100rpx;
+      color: #858585;
+}
 
 </style>
 <template>
-  <view class="news">
+  <view class="news" wx:if="{{articles}}">
     <scroll-view scroll-x="true" class='scroll-colums'>
       <repeat for="{{columns}}"  key="{{item.column_id}}">
         <view id="green"  class="scroll-view-item" >{{item.title}}</view>
@@ -165,12 +171,14 @@ swiper {
         </view> 
       </repeat>
     </view>
+    <view class="loade-more">
+      加载数据中...
+    </view>
   </view>
 </template>
 
 <script>
   import wepy from 'wepy'
-  
   export default class Index extends wepy.page {
     config = {
       navigationBarTitleText: 'news'
@@ -185,7 +193,126 @@ swiper {
       interval: 5000,
       duration: 1000,
       pageIndex:1,
-      articles: [
+      articles: '',
+      columns: [
+        {
+                "column_id": "6",
+                "title": "推荐",
+                "template_type": "1",
+                "create_time": "2018-01-19 23:10:33",
+                "sort": "1"
+            },
+            {
+                "column_id": "2",
+                "title": "政策",
+                "template_type": "1",
+                "create_time": "2018-03-07 16:53:41",
+                "sort": "3"
+            },
+            {
+                "column_id": "4",
+                "title": "国内",
+                "template_type": "1",
+                "create_time": "2018-03-07 16:53:41",
+                "sort": "4"
+            },
+            {
+                "column_id": "1",
+                "title": "海外",
+                "template_type": "1",
+                "create_time": "2018-03-07 16:53:39",
+                "sort": "5"
+            },
+            {
+                "column_id": "5",
+                "title": "行情",
+                "template_type": "1",
+                "create_time": "2018-03-07 10:20:52",
+                "sort": "6"
+            },
+            {
+                "column_id": "11",
+                "title": "百科",
+                "template_type": "2",
+                "create_time": "2018-02-24 17:50:37",
+                "sort": "7"
+            }
+      ],
+      banner: [
+                {
+                    "id": "44",
+                    "title": "人民日报：加密数字货币是“具有价值的实验”",
+                    "ad_desc": "全球加密数字货币价格颇不稳定，比特币从去年底两万美元左右的巅峰一路跌破7000美元，又在一天内飙升逾11%。市场巨幅波动，各国对于数字货币的态度也有诸多差异。有的宣布将发行世界上第一个主权法定数字货币，表现出“力挺”姿态，更多国家谨慎观察，着眼于研究和引导。 ",
+                    "url": "https://www.xinbinews.com/app/detail/3725",
+                    "sort": "2",
+                    "click_nums": "0",
+                    "medias_id": "4745",
+                    "url_type": "1",
+                    "article_id": "3725",
+                    "type": "1",
+                    "path": "http://xinbicaijing.oss-cn-beijing.aliyuncs.com/source/pics/20180416/152387802911003.jpg"
+                },
+                {
+                    "id": "36",
+                    "title": "网易、阿里、百度“角逐”区块链，谁走的更远？",
+                    "ad_desc": "区块链可能是2018年以来最火的概念。2017年在币海中沉浮感受过18万变成200万再灰飞烟灭变成12万之后，重新审视区块链会发现，这项技术并不稀奇。 ",
+                    "url": "https://www.xinbinews.com/app/detail/3756",
+                    "sort": "4",
+                    "click_nums": "0",
+                    "medias_id": "4746",
+                    "url_type": "1",
+                    "article_id": "3756",
+                    "type": "1",
+                    "path": "http://xinbicaijing.oss-cn-beijing.aliyuncs.com/source/pics/20180416/152387817899354.jpg"
+                },
+                {
+                    "id": "43",
+                    "title": "EOS深度研究报告",
+                    "ad_desc": "全球市场市值排名前10的项目中，平台类项目占据5个。急剧上涨的区块链热度与不成熟的底层技术是如今难以调和的矛盾。优质的平台类项目历来得到资本的青睐。EOS众筹募资3亿美金，位列平台类项目榜首；二级市场也表现不凡，稳居全球市值前十。 ",
+                    "url": "https://www.xinbinews.com/app/detail/3691",
+                    "sort": "5",
+                    "click_nums": "0",
+                    "medias_id": "4637",
+                    "url_type": "1",
+                    "article_id": "3691",
+                    "type": "1",
+                    "path": "http://xinbicaijing.oss-cn-beijing.aliyuncs.com/source/pics/20180414/152369185933537.jpg"
+                },
+                {
+                    "id": "45",
+                    "title": "2018第一届世界区块链大会",
+                    "ad_desc": "世界区块链大会，区块链领域每半年一届的世界性行业盛会，旨在搭建一个全球区块链相关联行业互联互通、共享共治、共创共赢的国际平台。       ",
+                    "url": "https://www.xinbinews.com/app/detail/3347",
+                    "sort": "7",
+                    "click_nums": "0",
+                    "medias_id": "4229",
+                    "url_type": "1",
+                    "article_id": "3347",
+                    "type": "1",
+                    "path": "http://xinbicaijing.oss-cn-beijing.aliyuncs.com/source/pics/20180408/152315550239175.jpg"
+                }
+            ]
+    }
+
+    computed = {
+
+    }
+
+    methods = {
+     
+    }
+
+    events = {
+     
+    }
+    onReady() {
+      wepy.startPullDownRefresh(); //默认加载进来就加载，此方法会调用下拉刷新方法
+    }
+    onPullDownRefresh() {
+      //https://developers.weixin.qq.com/miniprogram/dev/api/pulldown.html#onpulldownrefresh
+      console.log('下拉刷新，此方法为小程序原生方法');
+      setTimeout(() => {
+        this.articles =  [
                 {
                     "author": "全球区块链高峰论坛",
                     "medias": [
@@ -313,119 +440,12 @@ swiper {
                     "pid": "0",
                     "title": "阿里、京东大战区块链，但意外带火了另一个平台"
                 }
-              ],
-      columns: [
-        {
-                "column_id": "6",
-                "title": "推荐",
-                "template_type": "1",
-                "create_time": "2018-01-19 23:10:33",
-                "sort": "1"
-            },
-            {
-                "column_id": "2",
-                "title": "政策",
-                "template_type": "1",
-                "create_time": "2018-03-07 16:53:41",
-                "sort": "3"
-            },
-            {
-                "column_id": "4",
-                "title": "国内",
-                "template_type": "1",
-                "create_time": "2018-03-07 16:53:41",
-                "sort": "4"
-            },
-            {
-                "column_id": "1",
-                "title": "海外",
-                "template_type": "1",
-                "create_time": "2018-03-07 16:53:39",
-                "sort": "5"
-            },
-            {
-                "column_id": "5",
-                "title": "行情",
-                "template_type": "1",
-                "create_time": "2018-03-07 10:20:52",
-                "sort": "6"
-            },
-            {
-                "column_id": "11",
-                "title": "百科",
-                "template_type": "2",
-                "create_time": "2018-02-24 17:50:37",
-                "sort": "7"
-            }
-      ],
-      banner: [
-                {
-                    "id": "44",
-                    "title": "人民日报：加密数字货币是“具有价值的实验”",
-                    "ad_desc": "全球加密数字货币价格颇不稳定，比特币从去年底两万美元左右的巅峰一路跌破7000美元，又在一天内飙升逾11%。市场巨幅波动，各国对于数字货币的态度也有诸多差异。有的宣布将发行世界上第一个主权法定数字货币，表现出“力挺”姿态，更多国家谨慎观察，着眼于研究和引导。 ",
-                    "url": "https://www.xinbinews.com/app/detail/3725",
-                    "sort": "2",
-                    "click_nums": "0",
-                    "medias_id": "4745",
-                    "url_type": "1",
-                    "article_id": "3725",
-                    "type": "1",
-                    "path": "http://xinbicaijing.oss-cn-beijing.aliyuncs.com/source/pics/20180416/152387802911003.jpg"
-                },
-                {
-                    "id": "36",
-                    "title": "网易、阿里、百度“角逐”区块链，谁走的更远？",
-                    "ad_desc": "区块链可能是2018年以来最火的概念。2017年在币海中沉浮感受过18万变成200万再灰飞烟灭变成12万之后，重新审视区块链会发现，这项技术并不稀奇。 ",
-                    "url": "https://www.xinbinews.com/app/detail/3756",
-                    "sort": "4",
-                    "click_nums": "0",
-                    "medias_id": "4746",
-                    "url_type": "1",
-                    "article_id": "3756",
-                    "type": "1",
-                    "path": "http://xinbicaijing.oss-cn-beijing.aliyuncs.com/source/pics/20180416/152387817899354.jpg"
-                },
-                {
-                    "id": "43",
-                    "title": "EOS深度研究报告",
-                    "ad_desc": "全球市场市值排名前10的项目中，平台类项目占据5个。急剧上涨的区块链热度与不成熟的底层技术是如今难以调和的矛盾。优质的平台类项目历来得到资本的青睐。EOS众筹募资3亿美金，位列平台类项目榜首；二级市场也表现不凡，稳居全球市值前十。 ",
-                    "url": "https://www.xinbinews.com/app/detail/3691",
-                    "sort": "5",
-                    "click_nums": "0",
-                    "medias_id": "4637",
-                    "url_type": "1",
-                    "article_id": "3691",
-                    "type": "1",
-                    "path": "http://xinbicaijing.oss-cn-beijing.aliyuncs.com/source/pics/20180414/152369185933537.jpg"
-                },
-                {
-                    "id": "45",
-                    "title": "2018第一届世界区块链大会",
-                    "ad_desc": "世界区块链大会，区块链领域每半年一届的世界性行业盛会，旨在搭建一个全球区块链相关联行业互联互通、共享共治、共创共赢的国际平台。       ",
-                    "url": "https://www.xinbinews.com/app/detail/3347",
-                    "sort": "7",
-                    "click_nums": "0",
-                    "medias_id": "4229",
-                    "url_type": "1",
-                    "article_id": "3347",
-                    "type": "1",
-                    "path": "http://xinbicaijing.oss-cn-beijing.aliyuncs.com/source/pics/20180408/152315550239175.jpg"
-                }
-            ]
-    }
-
-    computed = {
-
-    }
-
-    methods = {
+              ];
+        wepy.stopPullDownRefresh(); //停止刷新
+        this.$apply(); //此方法必须加上，不然数据不会重新渲染
+      }, 1000); //模拟加载事件
      
     }
-
-    events = {
-     
-    }
-
     onReachBottom() {
       console.log('上拉加载更多数据，此方法为小程序原生方法');
       setTimeout(() => {

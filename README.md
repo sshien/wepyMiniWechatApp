@@ -1,4 +1,4 @@
-#一个基于[wepy](https://tencent.github.io/wepy/index.html)的微信小程序 
+#一个基于[wepy](https://tencent.github.io/wepy/index.html)的微信小程序, 运行该项目前请配置好wepy的本地环境，配置方法去官网观看即可；
 > [wepy](https://tencent.github.io/wepy/index.html) 是以vue的开发方式将小程序组件化，开发起来特别方便；
 
 
@@ -7,6 +7,6 @@
 ### 运行方法
 +  将此项目下载到本地
 + npm install 
-+ npm build --watch 
++ wepy build --watch
 + 打开微信小程序，必须是同一个目录下的，也就是你clone 下来的项目目录。即可查看该项目的运行结果
 
