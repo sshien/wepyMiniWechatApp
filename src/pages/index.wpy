@@ -1,0 +1,438 @@
+<style lang="less">
+::-webkit-scrollbar {
+  display: none;
+}
+.news {
+  position: relative;
+  width: 100%;
+}
+.scroll-colums {
+  position: fixed; 
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 999;
+  white-space: nowrap;
+  background-image: linear-gradient(-180deg, #000000 0%, rgba(0,0,0,0.00) 100%);
+}
+.active {
+  color: #e69f1a!important;
+}
+.scroll-view-item {
+  padding: 0 25rpx;
+  display: inline-block;
+  line-height: 76rpx;
+  color: #fff;
+  font-size: 32rpx;
+}
+swiper {
+  height: 380rpx;
+}
+.news swiper-item .banner-intro {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 15rpx 15rpx;
+  line-height: 28rpx;
+  background: rgba(0,0,0,0.50);
+  font-size: 28rpx;
+  color: #FFFFFF;
+}
+
+.news-item {
+  padding: 10rpx;
+  display: flex;
+  height: 200rpx;
+  border: 1rpx solid rgba(155,155,155,0.20);
+}
+
+.news-item>.item-content {
+  padding: 10rpx;
+  padding-left: 20rpx;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  color: #333;
+  font-size: 32rpx;
+}
+.news-item>.item-content>.news-footer {
+  line-height: 40rpx;
+  font-size: 24rpx;
+  color: #868686;  
+}
+.item-content>.news-footer>text {
+  margin-right: 15rpx;
+}
+.news-item>.item-content>.news-title {
+  flex: 1;
+}
+.news-item>.item-thimble {
+  padding: 15rpx 0;
+  width: 240rpx;
+}
+ image{
+  width: 100%;
+  height: 100%;
+}
+/**
+热搜词条
+*/
+.hot-word {
+  margin-top: 100rpx;
+  width: 100%;
+  color: #4A4A4A;
+  border-bottom: 2rpx rgba(155,155,155,0.20) solid;
+}
+.hot-header {
+  padding-left: 50rpx;
+  font-size: 28rpx;
+  line-height: 120rpx;
+}
+.user-cell {
+  position: relative;
+  display: flex;
+}
+.user-cell>.cell-icon {
+  width: 100rpx;
+  display: inline-block;
+  color: #e69f1a;
+  font-size: 32rpx;
+  font-weight: bold;
+  line-height: 90rpx;
+  text-align: center;
+}
+.user-cell>.des {
+  flex: 1;
+  font-size: 26rpx;
+  color: #4A4A4A;
+  line-height: 90rpx;
+}
+.user-cell>.push-icon {
+  width: 80rpx;
+}
+.user-cell>.user-icon,
+.user-cell>.des,
+.user-cell>.push-icon {
+  line-height: 90rpx;
+}
+.icon-active {
+   color: #e22!important;
+   font-size: 38rpx!important;
+}
+.rank-down {
+  color: #666!important;
+}
+.under_line::after {
+  position: absolute;
+  content: " ";
+  left: 30rpx;
+  right: 0;
+  top: 0;
+  height: 2rpx;
+  background:  rgba(155,155,155,0.20);
+}
+
+</style>
+<template>
+  <view class="news">
+    <scroll-view scroll-x="true" class='scroll-colums'>
+      <repeat for="{{columns}}"  key="{{item.column_id}}">
+        <view id="green"  class="scroll-view-item" >{{item.title}}</view>
+      </repeat>
+    </scroll-view>
+    <swiper  indicator-dots="{{indicatorDots}}"
+             autoplay="{{autoplay}}" 
+             interval="{{interval}}" 
+             duration="{{duration}}">
+      <repeat for="{{banner}}">
+        <swiper-item >
+          <image src="{{item.path}}" class="slide-image" mode="scaleToFill"/>
+          <text class='banner-intro'>{{item.title}}</text>
+        </swiper-item>
+      </repeat>
+    </swiper>
+    <view class='news-container'>
+      <repeat wx:for="{{articles}}">
+        <view class='news-item' data-articleId="{{item.id}}">
+          <view class='item-thimble'>
+            <image src="{{item.medias[0].path}}" mode="scaleToFill"></image>
+          </view>
+          <view class='item-content'>
+            <text class='news-title'>{{item.title}}</text>
+            <view class='news-footer'><text>{{item.release_time}}</text></view>
+          </view>
+        </view> 
+      </repeat>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  
+  export default class Index extends wepy.page {
+    config = {
+      navigationBarTitleText: 'news'
+    }
+    components = {
+
+    }
+
+    data = {
+      indicatorDots: false,
+      autoplay: true,
+      interval: 5000,
+      duration: 1000,
+      pageIndex:1,
+      articles: [
+                {
+                    "author": "全球区块链高峰论坛",
+                    "medias": [
+                        {
+                            "id": "4785",
+                            "type": "1",
+                            "path": "http://xinbicaijing.oss-cn-beijing.aliyuncs.com/source/pics/20180417/152395148427828.jpg"
+                        }
+                    ],
+                    "recommend_index": "0",
+                    "collect_total": "0",
+                    "release_time": "2018-04-17",
+                    "tag": {
+                        "color": "#FFFFFF",
+                        "content": ""
+                    },
+                    "imgs": "4785",
+                    "view_nums": "0",
+                    "id": "3814",
+                    "url": "https://www.xinbinews.com/app/detail/3814",
+                    "langu_type": "1",
+                    "comment_total": "0",
+                    "lived_nums": "0",
+                    "article_desc": "BCB横扫东南亚，阿里不排除合作可能；一个名为BCB的加密货币近期进展迅速。除投资外，BCB早已不满足“虚拟货币”这一称。",
+                    "keywords": "区块链,支付,虚拟数字",
+                    "share_nums": "0",
+                    "template_type": "1",
+                    "column_id": "6",
+                    "style_type": "1",
+                    "pid": "0",
+                    "title": "阿里、京东大战区块链，但意外带火了另一个平台"
+                },
+                {
+                    "author": "全球区块链高峰论坛",
+                    "medias": [
+                        {
+                            "id": "4785",
+                            "type": "1",
+                            "path": "http://xinbicaijing.oss-cn-beijing.aliyuncs.com/source/pics/20180417/152395148427828.jpg"
+                        }
+                    ],
+                    "recommend_index": "0",
+                    "collect_total": "0",
+                    "release_time": "2018-04-17",
+                    "tag": {
+                        "color": "#FFFFFF",
+                        "content": ""
+                    },
+                    "imgs": "4785",
+                    "view_nums": "0",
+                    "id": "3814",
+                    "url": "https://www.xinbinews.com/app/detail/3814",
+                    "langu_type": "1",
+                    "comment_total": "0",
+                    "lived_nums": "0",
+                    "article_desc": "BCB横扫东南亚，阿里不排除合作可能；一个名为BCB的加密货币近期进展迅速。除投资外，BCB早已不满足“虚拟货币”这一称。",
+                    "keywords": "区块链,支付,虚拟数字",
+                    "share_nums": "0",
+                    "template_type": "1",
+                    "column_id": "6",
+                    "style_type": "1",
+                    "pid": "0",
+                    "title": "阿里、京东大战区块链，但意外带火了另一个平台"
+                },
+                {
+                    "author": "全球区块链高峰论坛",
+                    "medias": [
+                        {
+                            "id": "4785",
+                            "type": "1",
+                            "path": "http://xinbicaijing.oss-cn-beijing.aliyuncs.com/source/pics/20180417/152395148427828.jpg"
+                        }
+                    ],
+                    "recommend_index": "0",
+                    "collect_total": "0",
+                    "release_time": "2018-04-17",
+                    "tag": {
+                        "color": "#FFFFFF",
+                        "content": ""
+                    },
+                    "imgs": "4785",
+                    "view_nums": "0",
+                    "id": "3814",
+                    "url": "https://www.xinbinews.com/app/detail/3814",
+                    "langu_type": "1",
+                    "comment_total": "0",
+                    "lived_nums": "0",
+                    "article_desc": "BCB横扫东南亚，阿里不排除合作可能；一个名为BCB的加密货币近期进展迅速。除投资外，BCB早已不满足“虚拟货币”这一称。",
+                    "keywords": "区块链,支付,虚拟数字",
+                    "share_nums": "0",
+                    "template_type": "1",
+                    "column_id": "6",
+                    "style_type": "1",
+                    "pid": "0",
+                    "title": "阿里、京东大战区块链，但意外带火了另一个平台"
+                },{
+                    "author": "全球区块链高峰论坛",
+                    "medias": [
+                        {
+                            "id": "4785",
+                            "type": "1",
+                            "path": "http://xinbicaijing.oss-cn-beijing.aliyuncs.com/source/pics/20180417/152395148427828.jpg"
+                        }
+                    ],
+                    "recommend_index": "0",
+                    "collect_total": "0",
+                    "release_time": "2018-04-17",
+                    "tag": {
+                        "color": "#FFFFFF",
+                        "content": ""
+                    },
+                    "imgs": "4785",
+                    "view_nums": "0",
+                    "id": "3814",
+                    "url": "https://www.xinbinews.com/app/detail/3814",
+                    "langu_type": "1",
+                    "comment_total": "0",
+                    "lived_nums": "0",
+                    "article_desc": "BCB横扫东南亚，阿里不排除合作可能；一个名为BCB的加密货币近期进展迅速。除投资外，BCB早已不满足“虚拟货币”这一称。",
+                    "keywords": "区块链,支付,虚拟数字",
+                    "share_nums": "0",
+                    "template_type": "1",
+                    "column_id": "6",
+                    "style_type": "1",
+                    "pid": "0",
+                    "title": "阿里、京东大战区块链，但意外带火了另一个平台"
+                }
+              ],
+      columns: [
+        {
+                "column_id": "6",
+                "title": "推荐",
+                "template_type": "1",
+                "create_time": "2018-01-19 23:10:33",
+                "sort": "1"
+            },
+            {
+                "column_id": "2",
+                "title": "政策",
+                "template_type": "1",
+                "create_time": "2018-03-07 16:53:41",
+                "sort": "3"
+            },
+            {
+                "column_id": "4",
+                "title": "国内",
+                "template_type": "1",
+                "create_time": "2018-03-07 16:53:41",
+                "sort": "4"
+            },
+            {
+                "column_id": "1",
+                "title": "海外",
+                "template_type": "1",
+                "create_time": "2018-03-07 16:53:39",
+                "sort": "5"
+            },
+            {
+                "column_id": "5",
+                "title": "行情",
+                "template_type": "1",
+                "create_time": "2018-03-07 10:20:52",
+                "sort": "6"
+            },
+            {
+                "column_id": "11",
+                "title": "百科",
+                "template_type": "2",
+                "create_time": "2018-02-24 17:50:37",
+                "sort": "7"
+            }
+      ],
+      banner: [
+                {
+                    "id": "44",
+                    "title": "人民日报：加密数字货币是“具有价值的实验”",
+                    "ad_desc": "全球加密数字货币价格颇不稳定，比特币从去年底两万美元左右的巅峰一路跌破7000美元，又在一天内飙升逾11%。市场巨幅波动，各国对于数字货币的态度也有诸多差异。有的宣布将发行世界上第一个主权法定数字货币，表现出“力挺”姿态，更多国家谨慎观察，着眼于研究和引导。 ",
+                    "url": "https://www.xinbinews.com/app/detail/3725",
+                    "sort": "2",
+                    "click_nums": "0",
+                    "medias_id": "4745",
+                    "url_type": "1",
+                    "article_id": "3725",
+                    "type": "1",
+                    "path": "http://xinbicaijing.oss-cn-beijing.aliyuncs.com/source/pics/20180416/152387802911003.jpg"
+                },
+                {
+                    "id": "36",
+                    "title": "网易、阿里、百度“角逐”区块链，谁走的更远？",
+                    "ad_desc": "区块链可能是2018年以来最火的概念。2017年在币海中沉浮感受过18万变成200万再灰飞烟灭变成12万之后，重新审视区块链会发现，这项技术并不稀奇。 ",
+                    "url": "https://www.xinbinews.com/app/detail/3756",
+                    "sort": "4",
+                    "click_nums": "0",
+                    "medias_id": "4746",
+                    "url_type": "1",
+                    "article_id": "3756",
+                    "type": "1",
+                    "path": "http://xinbicaijing.oss-cn-beijing.aliyuncs.com/source/pics/20180416/152387817899354.jpg"
+                },
+                {
+                    "id": "43",
+                    "title": "EOS深度研究报告",
+                    "ad_desc": "全球市场市值排名前10的项目中，平台类项目占据5个。急剧上涨的区块链热度与不成熟的底层技术是如今难以调和的矛盾。优质的平台类项目历来得到资本的青睐。EOS众筹募资3亿美金，位列平台类项目榜首；二级市场也表现不凡，稳居全球市值前十。 ",
+                    "url": "https://www.xinbinews.com/app/detail/3691",
+                    "sort": "5",
+                    "click_nums": "0",
+                    "medias_id": "4637",
+                    "url_type": "1",
+                    "article_id": "3691",
+                    "type": "1",
+                    "path": "http://xinbicaijing.oss-cn-beijing.aliyuncs.com/source/pics/20180414/152369185933537.jpg"
+                },
+                {
+                    "id": "45",
+                    "title": "2018第一届世界区块链大会",
+                    "ad_desc": "世界区块链大会，区块链领域每半年一届的世界性行业盛会，旨在搭建一个全球区块链相关联行业互联互通、共享共治、共创共赢的国际平台。       ",
+                    "url": "https://www.xinbinews.com/app/detail/3347",
+                    "sort": "7",
+                    "click_nums": "0",
+                    "medias_id": "4229",
+                    "url_type": "1",
+                    "article_id": "3347",
+                    "type": "1",
+                    "path": "http://xinbicaijing.oss-cn-beijing.aliyuncs.com/source/pics/20180408/152315550239175.jpg"
+                }
+            ]
+    }
+
+    computed = {
+
+    }
+
+    methods = {
+     
+    }
+
+    events = {
+     
+    }
+
+    onReachBottom() {
+      console.log('上拉加载更多数据，此方法为小程序原生方法');
+      setTimeout(() => {
+        this.articles.push(...[this.articles[0], this.articles[0], this.articles[0]]);
+        this.$apply();
+      }, 1000);
+      
+    }
+  }
+</script>

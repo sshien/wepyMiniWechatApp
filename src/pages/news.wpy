@@ -1,0 +1,85 @@
+<style lang="less">
+@import url('../assets/iconfont');
+  .news-info {
+    margin: 0;
+    padding: 0 30rpx; 
+    overflow-y: hidden;
+    font-size: 32rpx;
+    color: #9B9B9B;
+    .loade-more{
+      height: 100rpx;
+      text-align: center;
+      line-height: 100rpx;
+      color: #858585;
+    }
+}
+</style>
+<template>
+  <view class="news-info">
+    <repeat for="{{list}}">
+      <info></info>
+    </repeat>
+    <view class="loade-more" wx:if="{{list}}">
+      加载数据中...
+    </view>
+    <toast />
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import Toast from 'wepy-com-toast'
+  import info from '@/components/info'
+
+  export default class Index extends wepy.page {
+    config = {
+      navigationBarTitleText: '快讯'
+    }
+    components = {
+      toast: Toast,
+      info: info
+    }
+
+    data = {
+      list: ''
+    }
+
+    computed = {
+      now () {
+        return +new Date()
+      }
+    }
+
+    methods = {
+      
+    }
+
+    events = {
+      
+    }
+    onReady() {
+      wepy.startPullDownRefresh(); //默认加载进来就加载，此方法会调用下拉刷新方法
+    }
+    onPullDownRefresh() {
+      //https://developers.weixin.qq.com/miniprogram/dev/api/pulldown.html#onpulldownrefresh
+      console.log('下拉刷新，此方法为小程序原生方法');
+      setTimeout(() => {
+        this.list = [1,2,3,4,5];
+        wepy.stopPullDownRefresh(); //停止刷新
+        this.$apply(); //此方法必须加上，不然数据不会重新渲染
+      }, 1000); //模拟加载事件
+     
+    }
+    onReachBottom() {
+      console.log('上拉加载更多数据，此方法为小程序原生方法');
+      setTimeout(() => {
+        this.list.push(...[1,2,2,2,2]);
+        this.$apply();
+      }, 1000);
+      
+    }
+    onLoad() {
+      
+    }
+  }
+</script>

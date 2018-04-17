@@ -1,0 +1,116 @@
+<style lang="less">
+::-webkit-scrollbar {
+  display: none;
+}
+.info-item {
+    position: relative;
+    margin-top: 30rpx;
+    padding: 5rpx 0;
+    background: #fff;
+    .info-content {
+        margin: 15rpx 0; 
+    }
+    .info-flex {
+        display: flex;
+        justify-content: space-between;
+    }
+    .flex-1 {
+        flex: 1;
+    }
+    .info-header {
+        .push-time, .reade-num{
+            flex: 1;
+            font-size: 28rpx;
+            color: #231E22;
+        }
+        .iconfont {
+             font-size: 32rpx;
+        }
+        .active {
+            color: goldenrod
+        }
+    }
+    .info-footer {
+        padding-bottom: 20rpx;
+    }
+    .reade-num {
+        color: #666;
+    }
+    .star, share {
+        flex: 1;
+        text-align: right;
+    }
+    .btn-reset {
+        border: none;
+        outline: none;
+
+    }
+    .share {
+        height: 50rpx;
+        font-size: 28rpx;
+        line-height: 50rpx;
+    }
+    info-footer {
+        padding: 15rpx 0;
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+
+.under-line::after {
+  content: ' ';
+  position: absolute;
+  left: -30rpx;
+  right: -30rpx;
+  bottom: 0;
+  height: 1rpx;
+  background: #EDDECA;
+  transform: scaleY(0.5); 
+}
+</style>
+<template>
+  <view class="info-item under-line">
+    
+      <view class="info-header info-flex">
+          <text class='push-time'>2018-02-03</text>
+          <span class='star'>
+            <repeat for="{{stars}}" key="index">
+                <i class="iconfont icon-xingxing active"></i>
+            </repeat>     
+          </span>
+      </view>
+      <view class='info-content'>据新华日报消息，联掌门户网络科技有限公司联合东南大学成立的物联网区块链实验室，日前在无锡高新区揭牌。
+据悉，联掌科技区块链实验室将从社区最频繁应用的物联网门禁入手，其研究成果可应用于区块链钥匙、区块链物联网设备、区块链监播等领域，提高社区智能系统的安全和运行效率。</view>
+      <view class='info-footer info-flex'>
+          <text class='reade-num'>阅读量：2000</text>
+      </view>
+  </view>
+</template>
+<script>
+  import wepy from 'wepy'
+
+  export default class List extends wepy.component {
+    data = {
+      list: [
+        {
+          id: '0',
+          title: 'loading'
+        }
+      ],
+      stars:[1,2,3,4,5]
+    }
+
+    events = {
+      'index-broadcast': (...args) => {
+        let $event = args[args.length - 1]
+        console.log(`${this.$name} receive ${$event.name} from ${$event.source.name}`)
+      }
+    }
+
+    methods = {
+      
+    }
+   
+  }
+</script>
