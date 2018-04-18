@@ -1,0 +1,341 @@
+<style lang="less">
+image {
+  width: 100%;
+}
+.article {
+  margin-top: 20rpx;
+  padding-bottom: 80rpx;
+  width: 100%;
+}
+.article>.article-header {
+  padding: 10rpx 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.article-sign .article-title{
+  font-size: 40rpx;
+  color: #231E22;
+}
+.article-sign >view {
+  margin-bottom: 20rpx;
+}
+.article-sign .create-time,
+.article-sign .article-from,
+.article-sign .author  {
+  margin-right: 25rpx;
+  font-size: 28rpx;
+  color: #666666;
+}
+
+
+.article >.article-content {
+  padding: 0 15rpx;
+  font-size: 32rpx;
+  color: #233;
+}
+.more-msg {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  font-size: 30rpx;
+  color: #fff;
+  background: rgba(202, 159, 94, 0.5);
+  text-align: center;
+  line-height: 70rpx;
+}
+/*
+推荐新闻
+*/ 
+.news-container {
+  margin-top: 25rpx;
+  padding: 0 20rpx;
+  font-size: 24rpx;
+  color: #666;
+}
+.relate-msg {
+  padding: 25rpx 0;
+  border-top: 1rpx solid rgba(155,155,155,0.20);
+  border-bottom: 1rpx solid rgba(155,155,155,0.20);
+}
+.relate-msg >view {
+  margin-bottom: 10rpx;
+}
+.hot-world {
+  padding: 10rpx;
+  border-bottom: 1rpx solid rgba(155,155,155,0.20);
+}
+.hot-world >text {
+  margin-right: 15rpx;
+}
+.releated-news {
+  line-height: 80rpx;
+  font-size: 28rpx;
+  color: #231E22;
+}
+.news-item {
+  margin-top: 5rpx;
+  padding: 10rpx;
+  display: flex;
+  height: 200rpx;
+  border: 1rpx solid rgba(155,155,155,0.20);
+}
+
+.news-item>.item-content {
+  padding: 10rpx;
+  padding-left: 20rpx;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  color: #333;
+  font-size: 32rpx;
+}
+.news-item>.item-content>.news-footer {
+  line-height: 40rpx;
+  font-size: 24rpx;
+  color: #868686;  
+}
+.item-content>.news-footer>text {
+  margin-right: 15rpx;
+}
+.news-item>.item-content>.news-title {
+  flex: 1;
+}
+.news-item>.item-thimble {
+  padding: 15rpx 0;
+  width: 240rpx;
+}
+.news-item>.item-thimble image {
+  width: 100%;
+  height: 100%;
+}
+
+.sign {
+  padding: 2rpx 10rpx;
+  font-size: 18rpx;
+  color: #e69f1a;
+  border: 0.5rpx solid #e69f1a;
+  border-radius: 2px;
+}
+</style>
+
+
+<template>
+<view class='container'>
+  <image src='{{articleSub.medias[0].path}}'></image>
+  <view class='article'>
+    <view class='article-header'>
+       <view class='article-sign'>
+          <view><text class='article-title'>{{articleSub.title}}</text></view>
+          <view><text class='create-time'>{{articleSub.release_time}}</text><text class='author'>{{articleSub.author}}</text></view>
+       </view>
+    </view>
+    <panel :parserName="name1" :parserContent.sync="content1"></panel>
+    <view class='news-container'>
+      <view class='relate-msg'>
+        <view>原创文章 {{articleSub.author}}</view>
+        <view>转载请联系原作者，违规转载法律必究</view>
+      </view>
+      <view class='hot-world'>
+        <repeat for="{{keyWrods}}">
+          <text class='sign'>{{item}}</text>
+        </repeat>
+      </view>
+      <view class='releated-news'>相关文章</view>
+      <repeat wx:for="{{relatedArticles}}">
+        <view class='news-item' data-articleId="{{item.id}}" bindtap='pushArticle'>
+          <view class='item-thimble'>
+            <image src="{{item.medias[0].path}}" mode="scaleToFill"></image>
+          </view>
+          <view class='item-content'>
+            <text class='news-title'>{{item.title}}</text>
+            <view class='news-footer'><text>{{item.release_time}}</text></view>
+          </view>
+        </view> 
+      </repeat>
+    </view>
+  </view>
+  <view class='more-msg fixed' bindtap='backMain' wx:if="{{isApp}}">更多资讯</view>
+</view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import HTMLParser from '@/components/HTMLParser'
+  export default class Index extends wepy.page {
+    config = {
+      navigationBarTitleText: '新闻详情'
+    }
+    components = {
+        panel: HTMLParser
+    }
+
+    data = {
+        content1: "<p><br/></p><p>众安在线(06060.HK)涨3.05%，报于69.25港元，暂成交4436.47万港元，最新总市值1017.84亿港元。</p><p>12月22日，《区块链数据格式》正式发布，成为继《区块链参考架构》之后，中国电子技术标准化研究院发布的国内第二个区块链标准。</p><p>为推动国内区块链技术和应用标准化进程，标准院宣布建立国内区块链自主开源社区，并公布首批开源项目。</p><p>由众安保险旗下全资子公司众安科技自主研发的区块链系统——众安链(Annchain)入选首批三大开源项目，同时众安科技也当选此次论坛理事会副理事长单位。</p><p>众安科技CTO李雪峰表示，区块链技术和系统标准化是必要，技术开源是必然，众安科技安链云早已在部署。基于众安链，安链云将形成完整的区块链经济模型，其中数学模型和技术模型是区块链的存在基础，法律模型和生态模型则是区块链的发展目标。</p><p><br/></p>",
+        name1: 'myHtmlParserKiner1',
+        articleSub: {
+                        "id": "104",
+                        "title": "众安链入选首批三大开源项目 众安在线涨超3%",
+                        "article_desc": "区块链头条",
+                        "author": "格隆汇",
+                        "keywords": "众安链",
+                        "column_id": "5",
+                        "template_type": "1",
+                        "tag": {
+                            "color": "#FFD700",
+                            "content": "原创"
+                        },
+                        "style_type": "1",
+                        "imgs": "213",
+                        "langu_type": "1",
+                        "pid": "0",
+                        "release_time": "2017-12-29 13:44:48",
+                        "view_nums": "20619",
+                        "share_nums": "0",
+                        "lived_nums": "0",
+                        "collect_total": "0",
+                        "comment_total": "0",
+                        "recommend_index": "0",
+                        "articleContent": "<p><br/></p><p>众安在线(06060.HK)涨3.05%，报于69.25港元，暂成交4436.47万港元，最新总市值1017.84亿港元。</p><p>12月22日，《区块链数据格式》正式发布，成为继《区块链参考架构》之后，中国电子技术标准化研究院发布的国内第二个区块链标准。</p><p>为推动国内区块链技术和应用标准化进程，标准院宣布建立国内区块链自主开源社区，并公布首批开源项目。</p><p>由众安保险旗下全资子公司众安科技自主研发的区块链系统——众安链(Annchain)入选首批三大开源项目，同时众安科技也当选此次论坛理事会副理事长单位。</p><p>众安科技CTO李雪峰表示，区块链技术和系统标准化是必要，技术开源是必然，众安科技安链云早已在部署。基于众安链，安链云将形成完整的区块链经济模型，其中数学模型和技术模型是区块链的存在基础，法律模型和生态模型则是区块链的发展目标。</p><p><br/></p>",
+                        "medias": [
+                            {
+                                "id": "213",
+                                "type": "1",
+                                "path": "https://imagecdn.xinbinews.com/source/pics/2017-12-29/5a45d6416aebf.png"
+                            }
+                        ],
+                        "liked_status": "0",
+                        "collection_status": "0",
+                        "attention_status": "0"
+            },
+            relatedArticles: [
+                    {
+                        "author": "Hilary",
+                        "medias": [
+                            {
+                                "id": "4482",
+                                "type": "1",
+                                "path": "http://xinbicaijing.oss-cn-beijing.aliyuncs.com/source/pics/20180412/152350328372516.jpg"
+                            }
+                        ],
+                        "recommend_index": "0",
+                        "collect_total": "0",
+                        "release_time": "2018-04-12",
+                        "tag": {
+                            "color": "#FFFFFF",
+                            "content": ""
+                        },
+                        "imgs": "4482",
+                        "view_nums": "1280",
+                        "id": "3568",
+                        "url": "https://www.xinbinews.com/app/detail/3568",
+                        "langu_type": "1",
+                        "comment_total": "0",
+                        "lived_nums": "0",
+                        "article_desc": "Greenspan在接受彭博采访时谈到了比特币市场情况、市场面临的一些问题以及比特币作为支付方式等这些观点。他提供了一些机构见解，“我们进入市场的流动性越强，比特币就会越好，”指着华尔街，准备好“参与进来”。",
+                        "keywords": "Etoro,Greenspa",
+                        "share_nums": "0",
+                        "template_type": "1",
+                        "column_id": "5",
+                        "style_type": "1",
+                        "pid": "0",
+                        "title": "华尔街正在为比特币“输入新的血液”"
+                    },
+                    {
+                        "author": "鲁伯特之泪",
+                        "medias": [
+                            {
+                                "id": "4412",
+                                "type": "1",
+                                "path": "http://xinbicaijing.oss-cn-beijing.aliyuncs.com/source/pics/20180411/152341629528958.jpg"
+                            }
+                        ],
+                        "recommend_index": "0",
+                        "collect_total": "0",
+                        "release_time": "2018-04-11",
+                        "tag": {
+                            "color": "#FFFFFF",
+                            "content": ""
+                        },
+                        "imgs": "4412",
+                        "view_nums": "1600",
+                        "id": "3510",
+                        "url": "https://www.xinbinews.com/app/detail/3510",
+                        "langu_type": "1",
+                        "comment_total": "0",
+                        "lived_nums": "0",
+                        "article_desc": "熊市深深不见底，这两个月的行情格外煎熬人，反复震荡的K线将人撩拨的死去活来，上一秒觉得行情要来，下一秒或许就会跌入谷底。",
+                        "keywords": "比特币,区块链,交易所",
+                        "share_nums": "0",
+                        "template_type": "1",
+                        "column_id": "5",
+                        "style_type": "1",
+                        "pid": "0",
+                        "title": "黎明就在眼前，大牛市或将重启"
+                    },
+                    {
+                        "author": "腾讯科技",
+                        "medias": [
+                            {
+                                "id": "4556",
+                                "type": "1",
+                                "path": "http://xinbicaijing.oss-cn-beijing.aliyuncs.com/source/pics/20180413/152358838494639.jpg"
+                            }
+                        ],
+                        "recommend_index": "0",
+                        "collect_total": "0",
+                        "release_time": "2018-04-13",
+                        "tag": {
+                            "color": "#FFFFFF",
+                            "content": ""
+                        },
+                        "imgs": "4556",
+                        "view_nums": "199",
+                        "id": "3628",
+                        "url": "https://www.xinbinews.com/app/detail/3628",
+                        "langu_type": "1",
+                        "comment_total": "0",
+                        "lived_nums": "0",
+                        "article_desc": "区块链资本(Blockchain Capital)合伙人斯宾塞·博加特(Spencer Bogart)接受CNBC采访时表示，缴税抛售是今年比特币价格大跌的罪魁祸首，但这种情况已经接近尾声。\n",
+                        "keywords": "比特币,比特币价格,税收抛售",
+                        "share_nums": "0",
+                        "template_type": "1",
+                        "column_id": "5",
+                        "style_type": "1",
+                        "pid": "0",
+                        "title": "风投：缴税抛售导致比特币今年大跌 抛压已近尾声"
+                    }
+                ]
+    
+    }
+
+    computed = {
+
+    }
+
+    methods = {
+     
+    }
+
+    events = {
+     
+    }
+    onReady() {
+    }
+    onLoad() {
+        //  let that = this
+
+       // 网络更新数据内容注意点
+        // httpUtils.get(`${API_URL.edit}?id=${option.id}`)
+        // .then((data) => {
+        //   that.content1 = data.content
+        //   //注意，在此处修改了content2之后，需要手动调用$apply()方法更新数据
+        //   that.$apply()
+        //   //调用通知接口通知组件更新数据
+        //   that.$invoke('htmlParser', 'htmlParserNotice')
+        // })
+    }
+   
+  }
+</script>
+
+ 

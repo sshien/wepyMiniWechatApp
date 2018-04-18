@@ -143,7 +143,7 @@ swiper {
 <template>
   <view class="news" wx:if="{{articles}}">
     <scroll-view scroll-x="true" class='scroll-colums'>
-      <repeat for="{{columns}}"  key="{{item.column_id}}">
+      <repeat for="{{columns}}">
         <view id="green"  class="scroll-view-item" >{{item.title}}</view>
       </repeat>
     </scroll-view>
@@ -158,7 +158,7 @@ swiper {
         </swiper-item>
       </repeat>
     </swiper>
-    <view class='news-container'>
+    <view class='news-container' @tap="pushContent">
       <repeat wx:for="{{articles}}">
         <view class='news-item' data-articleId="{{item.id}}">
           <view class='item-thimble'>
@@ -299,7 +299,11 @@ swiper {
     }
 
     methods = {
-     
+     pushContent() {
+       wepy.navigateTo({
+          url: './newsContent'
+        })
+     }
     }
 
     events = {

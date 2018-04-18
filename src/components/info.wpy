@@ -101,6 +101,7 @@
       stars:[1,2,3,4,5]
     }
 
+ // events对象中所声明的函数为用于监听组件之间的通信与交互事件的事件处理函数
     events = {
       'index-broadcast': (...args) => {
         let $event = args[args.length - 1]

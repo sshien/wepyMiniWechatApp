@@ -17,7 +17,7 @@
 <template>
   <view class="news-info">
     <repeat for="{{list}}">
-      <info></info>
+      <info ></info>
     </repeat>
     <view class="loade-more" wx:if="{{list}}">
       加载数据中...
@@ -51,7 +51,9 @@
     }
 
     methods = {
-      
+      pushContent() {
+        console.log('hello world');
+      }
     }
 
     events = {

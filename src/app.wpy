@@ -22,7 +22,8 @@ export default class extends wepy.app {
     pages: [
       'pages/index',
       'pages/me',
-      'pages/news'
+      'pages/news',
+      'pages/newsContent'
     ],
     window: {
       navigationBarBackgroundColor: '#e69f1a',
