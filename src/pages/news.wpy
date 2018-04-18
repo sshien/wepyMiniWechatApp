@@ -51,9 +51,7 @@
     }
 
     methods = {
-      pushContent() {
-        console.log('hello world');
-      }
+      
     }
 
     events = {

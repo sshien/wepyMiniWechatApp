@@ -10,3 +10,6 @@
 + wepy build --watch
 + 打开微信小程序，必须是同一个目录下的，也就是你clone 下来的项目目录。即可查看该项目的运行结果
 
+### Demo演示
+
+<iframe height=320 width=568 src="./app.gif"> 

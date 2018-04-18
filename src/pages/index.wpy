@@ -158,7 +158,7 @@ swiper {
         </swiper-item>
       </repeat>
     </swiper>
-    <view class='news-container' @tap="pushContent">
+    <view class='news-container' @tap.stop="pushContent">
       <repeat wx:for="{{articles}}">
         <view class='news-item' data-articleId="{{item.id}}">
           <view class='item-thimble'>
