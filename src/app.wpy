@@ -26,7 +26,7 @@ export default class extends wepy.app {
       'pages/newsContent'
     ],
     window: {
-      navigationBarBackgroundColor: '#e69f1a',
+      navigationBarBackgroundColor: '#6666CC',
       navigationBarTitleText: 'WeChat',
       navigationBarTextStyle: '#fff',
       enablePullDownRefresh: true,//添加下拉刷新事件 
