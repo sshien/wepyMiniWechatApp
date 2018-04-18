@@ -12,4 +12,4 @@
 
 ### Demo演示
 
-<iframe height=320 width=568 src="./app.gif"> 
+![Aaron Swartz](https://github.com/sshien/wepyMiniWechatApp/blob/master/demo.gif)
